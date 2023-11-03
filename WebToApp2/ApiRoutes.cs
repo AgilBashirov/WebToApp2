@@ -8,9 +8,10 @@
 
         public struct Auth
         {
-            public const string GenerateQr = Base + "/login/generateQr";
-            public const string GetFile = Base + "/login/getFile";
-            public const string Callback = Base + "/login/callback";
+            public const string GenerateQr = Base + "/generateQr";
+            public const string GetFile = Base + "/getFile";
+            public const string Callback = Base + "/callback";
+            public const string DataUri = Base + "/getData";
         }
     }
 }

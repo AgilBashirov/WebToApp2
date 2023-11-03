@@ -6,9 +6,14 @@
 
     public class GetFileSuccessResponse : GetFileResponse
     {
-        public string FileName { get; init; }
+        public string? Type { get; init; }
 
-        public string Data { get; set; }
+        public List<DataObject> DataObjects { get; set; }
+    }
+    public class DataObject
+    {
+        public string Name { get; set; } = null!;
+        public string Data { get; set; } = null!;
     }
 
     public class GetFileErrorResponse : GetFileResponse

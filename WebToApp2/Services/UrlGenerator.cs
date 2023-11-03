@@ -22,5 +22,10 @@
         {
             return _baseUrl + "/" + ApiRoutes.Auth.Callback;
         }
+        
+        public string GenerateDataUrl(string token)
+        {
+            return _baseUrl + "/" + ApiRoutes.Auth.DataUri + "?token=" + token;
+        }
     }
 }

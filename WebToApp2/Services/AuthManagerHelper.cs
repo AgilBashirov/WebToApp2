@@ -10,7 +10,7 @@ namespace WebToApp2.Services
 {
     public partial class AuthManager 
     {
-        private Contract CreateContract(string operationId, OperationTypeEnum operationType) =>
+        private Contract CreateContract(string operationId) =>
         new()
         {
             SignableContainer = new SignableContainer
@@ -23,7 +23,8 @@ namespace WebToApp2.Services
                 OperationInfo = new OperationInfo
                 {
                     OperationId = operationId,
-                    Type = operationType is OperationTypeEnum.Auth ? "Auth" : "Sign",
+                    // Type = operationType is OperationTypeEnum.Auth ? "Auth" : "Sign",
+                    Type = "Sign",
                     NbfUTC = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
                     ExpUTC = new DateTimeOffset(DateTime.UtcNow.AddMinutes(int.Parse(
                             ConfigurationAccessor.AppConfiguration[
