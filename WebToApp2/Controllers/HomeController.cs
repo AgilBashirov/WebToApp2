@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
+using WebToApp2.Enum;
 using WebToApp2.Models;
 using WebToApp2.Services;
 
@@ -18,8 +19,8 @@ namespace WebToApp2.Controllers
         //Ok(await _authService.GenerateQrCodeAsync());
 
         [HttpGet(ApiRoutes.Auth.GenerateQr)]
-        public async Task<FileResult> GenerateQrForLogin() =>
-        new FileContentResult(await _authService.GenerateQrForLogin(), MediaTypeNames.Image.Jpeg);
+        public async Task<FileResult> GenerateQrForLogin([FromQuery] List<int> documentIds, GetFileResponseTypeEnum responseTypeEnum) =>
+        new FileContentResult(await _authService.GenerateQrForLogin(documentIds, responseTypeEnum), MediaTypeNames.Image.Jpeg);
 
         [HttpGet(ApiRoutes.Auth.DataUri)]
         public async Task<IActionResult> GetData(string token) =>
