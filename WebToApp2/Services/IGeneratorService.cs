@@ -1,6 +1,4 @@
-﻿using SkiaSharp.QrCode;
-using SkiaSharp;
-using QRCoder;
+﻿using QRCoder;
 using QRCodeGenerator = QRCoder.QRCodeGenerator;
 using QRCodeData = QRCoder.QRCodeData;
 

@@ -5,6 +5,10 @@ namespace WebToApp2.Entities;
 
 public class Operation
 {
+    public Operation()
+    {
+        OperationFiles = new HashSet<OperationFile>();
+    }
     [Key]
     public int Id { get; set; }
 

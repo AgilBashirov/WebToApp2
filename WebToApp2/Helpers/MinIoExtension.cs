@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Http;
 using RestSharp;
 using Shared.Exceptions;
 using WebToApp2.Helpers;

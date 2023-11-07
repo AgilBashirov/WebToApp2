@@ -81,8 +81,8 @@ namespace WebToApp2.Migrations
                     b.Property<int>("AppFileId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsSigned")
+                        .HasColumnType("bit");
 
                     b.Property<int>("OperationId")
                         .HasColumnType("int");
@@ -93,7 +93,7 @@ namespace WebToApp2.Migrations
 
                     b.HasIndex("OperationId");
 
-                    b.ToTable("OperationFile");
+                    b.ToTable("OperationFiles");
                 });
 
             modelBuilder.Entity("WebToApp2.Entities.OperationFile", b =>

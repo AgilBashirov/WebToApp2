@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using WebToApp2.Services;
+﻿using WebToApp2.Services;
+using WebToApp2.Services.Auth;
 using WebToApp2.Services.File;
 
 namespace WebToApp2

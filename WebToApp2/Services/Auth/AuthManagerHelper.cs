@@ -1,12 +1,10 @@
-﻿using System.Diagnostics.Contracts;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
-using WebToApp2.Enum;
 using WebToApp2.Helpers;
 using WebToApp2.Models.Sima;
 using Contract = WebToApp2.Models.Sima.Contract;
 
-namespace WebToApp2.Services
+namespace WebToApp2.Services.Auth
 {
     public partial class AuthManager 
     {
@@ -17,8 +15,8 @@ namespace WebToApp2.Services
             {
                 ProtoInfo = new ProtoInfo
                 {
-                    Name = ConfigurationAccessor.AppConfiguration!["SimaLogin:SignableContainer:ProtoInfo:Name"]!,
-                    Version = ConfigurationAccessor.AppConfiguration["SimaLogin:SignableContainer:ProtoInfo:Version"]!
+                    Name = ConfigurationAccessor.AppConfiguration!["SimaContainer:SignableContainer:ProtoInfo:Name"]!,
+                    Version = ConfigurationAccessor.AppConfiguration["SimaContainer:SignableContainer:ProtoInfo:Version"]!
                 },
                 OperationInfo = new OperationInfo
                 {
@@ -28,23 +26,23 @@ namespace WebToApp2.Services
                     NbfUTC = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
                     ExpUTC = new DateTimeOffset(DateTime.UtcNow.AddMinutes(int.Parse(
                             ConfigurationAccessor.AppConfiguration[
-                                "SimaLogin:SignableContainer:OperationInfo:QrExpireMinute"]!)))
+                                "SimaContainer:SignableContainer:OperationInfo:QrExpireMinute"]!)))
                         .ToUnixTimeSeconds(),
                     Assignee = new List<string>()
                 },
                 ClientInfo = new ClientInfo
                 {
                     ClientId = int.Parse(
-                        ConfigurationAccessor.AppConfiguration["SimaLogin:SignableContainer:ClientInfo:ClientId"]!),
-                    ClientName = "SimaLegalEntity",
-                    IconURI = ConfigurationAccessor.AppConfiguration["SimaLogin:SignableContainer:ClientInfo:IconUri"]!,
+                        ConfigurationAccessor.AppConfiguration["SimaContainer:SignableContainer:ClientInfo:ClientId"]!),
+                    ClientName = "Web2App",
+                    IconURI = ConfigurationAccessor.AppConfiguration["SimaContainer:SignableContainer:ClientInfo:IconUri"]!,
                     Callback = _urlGenerator.GenerateCallbackUrl(),
                     HostName = null
                 },
             },
             Header = new Header
             {
-                AlgorithmName = ConfigurationAccessor.AppConfiguration["SimaLogin:Header:AlgorithmName"]!,
+                AlgorithmName = ConfigurationAccessor.AppConfiguration["SimaContainer:Header:AlgorithmName"]!,
             }
         };
 
@@ -54,7 +52,7 @@ namespace WebToApp2.Services
 
             var computedHashAsByte = CryptHelper.ComputeSha256HashAsByte(json);
             var hMac = CryptHelper.GetHMAC(computedHashAsByte,
-                ConfigurationAccessor.AppConfiguration!["SimaLogin:Header:SecretKey"]!);
+                ConfigurationAccessor.AppConfiguration!["SimaContainer:Header:SecretKey"]!);
             return hMac;
         }
 

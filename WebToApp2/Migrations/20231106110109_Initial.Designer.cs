@@ -11,8 +11,8 @@ using WebToApp2;
 namespace WebToApp2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231104124256_OperationAdded")]
-    partial class OperationAdded
+    [Migration("20231106110109_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,7 @@ namespace WebToApp2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FileId")
+                    b.Property<int>("GetFileResponseType")
                         .HasColumnType("int");
 
                     b.Property<string>("QrOperationId")
@@ -70,25 +70,59 @@ namespace WebToApp2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileId");
-
                     b.ToTable("Operations");
                 });
 
-            modelBuilder.Entity("WebToApp2.Entities.Operation", b =>
+            modelBuilder.Entity("WebToApp2.Entities.OperationFile", b =>
                 {
-                    b.HasOne("WebToApp2.Entities.AppFile", "File")
-                        .WithMany("Operations")
-                        .HasForeignKey("FileId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppFileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OperationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppFileId");
+
+                    b.HasIndex("OperationId");
+
+                    b.ToTable("OperationFiles");
+                });
+
+            modelBuilder.Entity("WebToApp2.Entities.OperationFile", b =>
+                {
+                    b.HasOne("WebToApp2.Entities.AppFile", "AppFile")
+                        .WithMany("OperationFiles")
+                        .HasForeignKey("AppFileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("File");
+                    b.HasOne("WebToApp2.Entities.Operation", "Operation")
+                        .WithMany("OperationFiles")
+                        .HasForeignKey("OperationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppFile");
+
+                    b.Navigation("Operation");
                 });
 
             modelBuilder.Entity("WebToApp2.Entities.AppFile", b =>
                 {
-                    b.Navigation("Operations");
+                    b.Navigation("OperationFiles");
+                });
+
+            modelBuilder.Entity("WebToApp2.Entities.Operation", b =>
+                {
+                    b.Navigation("OperationFiles");
                 });
 #pragma warning restore 612, 618
         }

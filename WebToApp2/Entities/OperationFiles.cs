@@ -6,9 +6,10 @@ public class OperationFile
 {
     [Key]
     public int Id { get; set; }
+
+    public bool IsSigned { get; set; } = false;
     public int OperationId { get; set; }
-    public int FileId { get; set; }
-    
-    public virtual Operation Operation { get; set; } = null!;
-    public virtual AppFile AppFile { get; set; } = null!;
+    public virtual Operation Operation { get; set; }
+    public int AppFileId { get; set; }
+    public virtual AppFile AppFile { get; set; }
 }
